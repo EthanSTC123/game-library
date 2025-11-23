@@ -57,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div>
                 <a href="dashboard.php" class="btn btn-sm btn-outline-light me-2">Dashboard</a>
                 <a href="games.php" class="btn btn-sm btn-outline-light me-2">My Games</a>
+                <a href="search_games.php" class="btn btn-sm btn-outline-light me-2">Search</a>
                 <a href="logout.php" class="btn btn-sm btn-outline-light">Logout</a>
             </div>
         </div>

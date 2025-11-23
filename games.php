@@ -40,6 +40,7 @@ $result = mysqli_stmt_get_result($stmt);
             <a class="navbar-brand" href="dashboard.php">Game Library</a>
             <div>
                 <a href="dashboard.php" class="btn btn-sm btn-outline-light me-2">Dashboard</a>
+                <a href="search_games.php" class="btn btn-sm btn-outline-light me-2">Search</a>
                 <a href="add_game.php" class="btn btn-sm btn-outline-light me-2">Add Game</a>
                 <a href="logout.php" class="btn btn-sm btn-outline-light">Logout</a>
             </div>
