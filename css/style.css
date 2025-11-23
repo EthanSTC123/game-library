@@ -1,0 +1,312 @@
+/*
+ * Game Library Custom Styles
+ * Custom color scheme and styling
+ */
+
+/* Import Custom Font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* Custom Navbar Styling */
+.navbar {
+    background: rgba(44, 62, 80, 0.95) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-brand {
+    font-weight: 800 !important;
+    font-size: 1.5rem !important;
+    color: #fff !important;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    font-weight: 600 !important;
+    transition: all 0.3s ease;
+    margin: 0 5px;
+}
+
+.nav-link:hover {
+    color: #f39c12 !important;
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: #f39c12 !important;
+}
+
+/* Container Styling */
+.container {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Heading Styles */
+h1 {
+    color: #2c3e50;
+    font-weight: 800 !important;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+/* Custom Button Styles */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+    font-weight: 700 !important;
+    padding: 12px 28px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn-warning {
+    background-color: #f39c12 !important;
+    border: none !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-warning:hover {
+    background-color: #e67e22 !important;
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background-color: #e74c3c !important;
+    border: none !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b !important;
+    transform: scale(1.05);
+}
+
+.btn-outline-light {
+    font-weight: 600 !important;
+    border-width: 2px !important;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    background-color: #f39c12 !important;
+    border-color: #f39c12 !important;
+}
+
+/* Table Styling */
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.table thead {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white !important;
+}
+
+.table thead th {
+    border: none !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 18px 12px !important;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa !important;
+    transform: scale(1.01);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table tbody td {
+    padding: 15px 12px !important;
+    vertical-align: middle;
+    font-weight: 600;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-playing {
+    background-color: #3498db !important;
+    color: white;
+}
+
+.status-completed {
+    background-color: #2ecc71 !important;
+    color: white;
+}
+
+.status-wishlist {
+    background-color: #9b59b6 !important;
+    color: white;
+}
+
+.status-backlog {
+    background-color: #95a5a6 !important;
+    color: white;
+}
+
+.status-dropped {
+    background-color: #e74c3c !important;
+    color: white;
+}
+
+/* Rating Badge */
+.rating-badge {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-weight: 700;
+}
+
+/* Alert Boxes */
+.alert-info {
+    background-color: #e8f4fd !important;
+    border-left: 4px solid #3498db !important;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.alert-info h4 {
+    color: #2980b9;
+    font-weight: 700;
+}
+
+/* Form Styling */
+.form-label {
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.form-control, .form-select {
+    border: 2px solid #ecf0f1;
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+/* Action Buttons Group */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-state-icon {
+    font-size: 80px;
+    color: #bdc3c7;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    color: #7f8c8d;
+    font-weight: 700;
+}
+
+.empty-state p {
+    color: #95a5a6;
+    font-size: 1.1rem;
+}
+
+/* Card Enhancements */
+.info-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 20px;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.info-card h5 {
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+}
