@@ -2,6 +2,9 @@
 # LOADS THE CONNECTION TO THE DATABASE
 require_once 'includes/config.php';
 
+$errors = [];
+$success = "";
+
 # Check if the form has been submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     # Captures what the user has typed in
@@ -33,52 +36,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           }
       }
 }
+
+require_once 'vendor/autoload.php';
+$loader = new \Twig\Loader\FilesystemLoader('templates');
+$twig = new \Twig\Environment($loader);
+
+echo $twig->render('register.twig', [
+    'errors' => $errors,
+    'success' => $success
+]);
+
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Register - Game Library</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-    <div class="container mt-5">
-        <h1>Register</h1>
-
-        <?php if (isset($errors)): ?>
-            <div class="alert alert-danger">
-                <?php foreach ($errors as $error): ?>
-                    <?php echo htmlspecialchars($error); ?><br>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
-
-        <?php if (isset($success)): ?>
-            <div class="alert alert-success">
-                <?php echo htmlspecialchars($success); ?>
-            </div>
-        <?php endif; ?>
-
-        <form method="POST">
-            <label>Username:</label>
-            <input type="text" name="username" class="form-control mb-2" required>
-
-            <label>Email:</label>
-            <input type="email" name="email" class="form-control mb-2" required>
-
-            <label>Password:</label>
-            <input type="password" name="password" class="form-control mb-2" required>
-
-            <label>Confirm Password:</label>
-            <input type="password" name="confirm_password" class="form-control mb-3" required>
-
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
-
-        <p class="mt-3">Already have an account? <a href="login.php">Login here</a></p>
-    </div>
-
-</body>
-</html>
