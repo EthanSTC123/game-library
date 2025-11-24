@@ -66,6 +66,10 @@ if (isset($_GET['search'])) {
     <title>Search Games - Game Library</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
 </head>
 <body>
 
@@ -86,7 +90,7 @@ if (isset($_GET['search'])) {
     <form method="GET" class="mb-4">
         <div class="row">
             <div class="col-md-3">
-                <input type="text" name="title" class="form-control" placeholder="Title" value="<?php echo isset($_GET['title']) ? htmlspecialchars($_GET['title']) : ''; ?>">
+                <input type="text" name="title" id="search-title" class="form-control" placeholder="Title" value="<?php echo isset($_GET['title']) ? htmlspecialchars($_GET['title']) : ''; ?>">
             </div>
             <div class="col-md-3">
                 <input type="text" name="genre" class="form-control" placeholder="Genre" value="<?php echo isset($_GET['genre']) ? htmlspecialchars($_GET['genre']) : ''; ?>">
@@ -138,5 +142,25 @@ if (isset($_GET['search'])) {
               <?php endif; ?>
           <?php endif; ?>
       </div>
-  </body>
-  </html>
+
+      <script>
+        $(document).ready(function() {
+            $("#search-title").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "ajax_search.php",
+                        dataType: "json",
+                        data: {
+                            term: request.term
+                        },
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 2
+            });
+        });
+    </script>
+</body>
+</html>
