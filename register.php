@@ -13,26 +13,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
+# Verify reCAPTCHA
+    $recaptcha_secret = "6Lcc1BcsAAAAADP8c0TkZv1wNNfQdhUtYri1kQPl";
+    $recaptcha_response = $_POST['g-recaptcha-response'];
+    $verfiy_url = "https://www.google.com/recaptcha/api/siteverify?secret=$recaptcha_secret&response=$recaptcha_response";
+
+    $response = file_get_contents($verfiy_url);
+    $response_data = json_decode($response);
+
+    if (!$response_data->success) {
+        $errors[] = "Please complete the captcha verification.";
+    }
+
 # Makes sure all the fields are filled in and passwords match
     if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
         $errors[] = "All of the above fields are required.";
-
     } else if ($password !== $confirm_password) {
         $errors[] = "Passwords do not match.";
     }
 
 # Encrypts the password and stores the user in the database
-     else {
+    if (empty($errors)) {
           $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
           $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
           $stmt = mysqli_prepare($conn, $sql);
           mysqli_stmt_bind_param($stmt, "sss", $username, $email, $hashed_password);
 
-          if (mysqli_stmt_execute($stmt)) {
-              $success = "Registration successful! You can now login.";
-          } else {
-              $errors[] = "Username or email already exists";
+          try {
+              if (mysqli_stmt_execute($stmt)) {
+                  $success = "Registration has been successful! You can now login.";
+              } else {
+                  $errors[] = "Username or email already exists";
+              }
+          } catch (Exception $e) {
+              $errors[] = "An error occurred during registration. Please try again.";
           }
       }
 }
