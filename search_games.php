@@ -58,109 +58,22 @@ if (isset($_GET['search'])) {
         $games[] = $row;
     }
 }
+
+$search_params = [
+    'title' => $title ?? '',
+    'genre' => $genre ?? '',
+    'platform' => $platform ?? '',
+    'status' => $status ?? ''
+];
+
+#Load Twig
+require_once 'vendor/autoload.php';
+$loader = new \Twig\Loader\FilesystemLoader('templates');
+$twig = new \Twig\Environment($loader);
+
+echo $twig->render('search_games.twig', [
+    'games' => $games,
+    'searched' => $searched,
+    'search_params' => $search_params
+]);
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Search Games - Game Library</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-
-</head>
-<body>
-
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="dashboard.php">Game Library</a>
-        <div>
-            <a href="dashboard.php" class="btn btn-sm btn-outline-light me-2">Dashboard</a>
-            <a href="games.php" class="btn btn-sm btn-outline-light me-2">My Games</a>
-            <a href="logout.php" class="btn btn-sm btn-outline-light">Logout</a>
-        </div>
-    </div>
-</nav>
-
-<div class="container mt-4">
-    <h1>Search Games</h1>
-
-    <form method="GET" class="mb-4">
-        <div class="row">
-            <div class="col-md-3">
-                <input type="text" name="title" id="search-title" class="form-control" placeholder="Title" value="<?php echo isset($_GET['title']) ? htmlspecialchars($_GET['title']) : ''; ?>">
-            </div>
-            <div class="col-md-3">
-                <input type="text" name="genre" class="form-control" placeholder="Genre" value="<?php echo isset($_GET['genre']) ? htmlspecialchars($_GET['genre']) : ''; ?>">
-            </div>
-            <div class="col-md-3">
-                <input type="text" name="platform" class="form-control" placeholder="Platform" value="<?php echo isset($_GET['platform']) ? htmlspecialchars($_GET['platform']) : ''; ?>">
-            </div>
-            <div class="col-md-3">
-                <select name="status" class="form-control">
-                    <option value="Backlog" <?php if(($_GET['status'] ?? '') == 'Backlog') echo 'selected'; ?>>Backlog</option>
-                    <option value="Playing" <?php if(($_GET['status'] ?? '') == 'Playing') echo 'selected'; ?>>Playing</option>
-                    <option value="Completed" <?php if(($_GET['status'] ?? '') == 'Completed') echo 'selected'; ?>>Completed</option>
-                    <option value="Wishlist" <?php if(($_GET['status'] ?? '') == 'Wishlist') echo 'selected'; ?>>Wishlist</option>
-                </select>
-            </div>
-        </div>
-        <button type="submit" name="search" value="1" class="btn btn-primary mt-3">Search</button>
-        <a href="search_games.php" class="btn btn-secondary mt-3">Clear</a>
-    </form>
-
-
-    <?php if ($searched): ?>
-            <?php if (count($games) > 0): ?>
-                  <p>Found <?php echo count($games); ?> game(s)</p>
-                  <table class="table table-striped">
-                      <thead class="table-dark">
-                          <tr>
-                              <th>Title</th>
-                              <th>Genre</th>
-                              <th>Platform</th>
-                              <th>Status</th>
-                              <th>Rating</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <?php foreach ($games as $game): ?>
-                          <tr>
-                              <td><?php echo htmlspecialchars($game['title']); ?></td>
-                              <td><?php echo htmlspecialchars($game['genre'] ?: '-'); ?></td>
-                              <td><?php echo htmlspecialchars($game['platform'] ?: '-'); ?></td>
-                              <td><?php echo htmlspecialchars($game['status']); ?></td>
-                              <td><?php echo $game['rating'] ?: '-'; ?></td>
-                          </tr>
-                          <?php endforeach; ?>
-                      </tbody>
-                  </table>
-              <?php else: ?>
-                  <div class="alert alert-warning">No games matching your search</div>
-              <?php endif; ?>
-          <?php endif; ?>
-      </div>
-
-      <script>
-        $(document).ready(function() {
-            $("#search-title").autocomplete({
-                source: function(request, response) {
-                    $.ajax({
-                        url: "ajax_search.php",
-                        dataType: "json",
-                        data: {
-                            term: request.term
-                        },
-                        success: function(data) {
-                            response(data);
-                        }
-                    });
-                },
-                minLength: 2
-            });
-        });
-    </script>
-</body>
-</html>

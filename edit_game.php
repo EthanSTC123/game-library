@@ -54,83 +54,17 @@ if (isset($_GET['id'])) {
     header("Location: games.php");
     exit();
 }
+# Error handling
+$errors = [];
 
+# Load Twig
+require_once 'vendor/autoload.php';
+$loader = new \Twig\Loader\FilesystemLoader('templates');
+$twig = new \Twig\Environment($loader);
+
+echo $twig->render('edit_game.twig', [
+    'username' => $_SESSION['username'],
+    'game' => $game,
+    'errors' => $errors
+]);
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Game</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="dashboard.php">Game Library</a>
-            <div>
-                <a href="dashboard.php" class="btn btn-sm btn-outline-light me-2">Dashboard</a>
-                <a href="games.php" class="btn btn-sm btn-outline-light me-2">My Games</a>
-                <a href="search_games.php" class="btn btn-sm btn-outline-light me-2">Search</a>
-                <a href="logout.php" class="btn btn-sm btn-outline-light">Logout</a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container mt-4">
-        <h1>Edit Game</h1>
-
-        <?php if (isset($errors)): ?>
-            <div class="alert alert-danger">
-                <?php foreach ($errors as $error): ?>
-                    <?php echo htmlspecialchars($error); ?><br>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
-
-        <form method="POST">
-            <input type="hidden" name="game_id" value="<?php echo htmlspecialchars($game['id']); ?>">
-
-            <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="<?php echo htmlspecialchars($game['title']); ?>" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="genre" class="form-label">Genre</label>
-                <input type="text" class="form-control" id="genre" name="genre" value="<?php echo htmlspecialchars($game['genre']); ?>">
-            </div>
-
-            <div class="mb-3">
-                <label for="platform" class="form-label">Platform</label>
-                <input type="text" class="form-control" id="platform" name="platform" value="<?php echo htmlspecialchars($game['platform']); ?>">
-            </div>
-
-            <div class="mb-3">
-                <label for="release_year" class="form-label
-
-
-">Release Year</label>
-            <input type="date" name="release_date" class="from-control mb-3 " value="<?php echo $game['release_date']; ?>">
-
-            <label>Rating 1-10:</label>
-            <input type="number" name="rating" class="form-control mb-2" min="1" max="10" value="<?php echo $game['rating']; ?>">
-
-            <label>Hours PLayed</label>
-            <input type="number" step="0.1" name="hours_played" class="form-control mb-2" value="<?php echo $game['hours_played']; ?>">
-
-            <label>Status:</label>
-            <select name="status" class="form-control mb-3">
-                <option value="Backlog" <?php if ($game['status'] == 'Backlog') echo 'selected'; ?>>Backlog</option>
-                <option value="Playing" <?php if ($game['status'] == 'Playing') echo 'selected'; ?>>Playing</option>
-                <option value="Completed" <?php if ($game['status'] == 'Completed') echo 'selected'; ?>>Completed</option>
-                <option value="Wishlist" <?php if ($game['status'] == 'Wishlist') echo 'selected'; ?>>Wishlist</option>
-            </select>
-
-            <button type="submit" class="btn btn-primary">Update Game</button>
-            <a href="games.php" class="btn btn-secondary ms-2">Cancel</a>
-        </form>
-    </div>
-</body>
-</html>
