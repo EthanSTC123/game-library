@@ -27,8 +27,45 @@
             <a href="games.php" class="btn btn-primary me-2">View My Games</a>
             <a href="add_game.php" class="btn btn-primary">Add New Game</a>
         </div>
-    </div>
 
+<!-- Popular Games Section -->
+    <div class="mt-5">
+        <h2>Popular Games</h2>
+          <p class="text-muted">Quick Add Games to Your Library</p>
+
+          <div class="row">
+              {% for game in popular_games %}
+                <div class="col-md-4 mb-4">
+                  <div class="card game-card border-0 overflow-hidden">
+                      <img src="{{ game.image }}" class="card-img" alt="{{ game.title }}" style="height: 400px; object-fit: cover;">
+                      <div class="card-img-overlay game-overlay d-flex flex-column justify-content-end">
+                          <h5 class="card-title text-white">{{ game.title }}</h5>
+                          <div class="game-details">
+                              <p class="card-text text-white mb-2">
+                                  <strong>Genre:</strong> {{ game.genre }}<br>
+                                  <strong>Platform:</strong> {{ game.platform }}<br>
+                                  <strong>Released:</strong> {{ game.release_date }}
+                              </p>
+
+
+                              <form method="POST" action="quick_add_game.php">
+                                  <input type="hidden" name="title" value="{{ game.title }}">
+                                  <input type="hidden" name="genre" value="{{ game.genre }}">
+                                  <input type="hidden" name="platform" value="{{ game.platform }}">
+                                  <input type="hidden" name="release_date" value="{{ game.release_date }}">
+                                  <input type="hidden" name="hours_played" value="0">
+                                  <input type="hidden" name="status" value="Backlog">
+                                  <button type="submit" class="btn btn-success btn-sm">Add to Library</button>
+                                </form>
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            {% endfor %}
+          </div>
+      </div>
+  </div>
 </body>
 </html>
 

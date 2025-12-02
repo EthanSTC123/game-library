@@ -1,10 +1,5 @@
-/*
- * Game Library Custom Styles
- * Custom color scheme and styling
- */
 
-/* Import Custom Font */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+ /* Game Library Custom Styles
 
 /* Global Styles */
 body {
@@ -32,16 +27,7 @@ body {
     font-weight: 600 !important;
     transition: all 0.3s ease;
     margin: 0 5px;
-}
-
-.nav-link:hover {
-    color: #f39c12 !important;
-    transform: translateY(-2px);
-}
-
-.nav-link.active {
-    color: #f39c12 !important;
-}
+    }
 
 /* Container Styling */
 .container {
@@ -58,12 +44,6 @@ h1 {
     color: #2c3e50;
     font-weight: 800 !important;
     margin-bottom: 10px;
-}
-
-.subtitle {
-    color: #7f8c8d;
-    font-size: 1.1rem;
-    margin-bottom: 25px;
 }
 
 /* Custom Button Styles */
@@ -155,41 +135,6 @@ h1 {
     font-weight: 600;
 }
 
-/* Status Badges */
-.status-badge {
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.status-playing {
-    background-color: #3498db !important;
-    color: white;
-}
-
-.status-completed {
-    background-color: #2ecc71 !important;
-    color: white;
-}
-
-.status-wishlist {
-    background-color: #9b59b6 !important;
-    color: white;
-}
-
-.status-backlog {
-    background-color: #95a5a6 !important;
-    color: white;
-}
-
-.status-dropped {
-    background-color: #e74c3c !important;
-    color: white;
-}
-
 /* Rating Badge */
 .rating-badge {
     background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
@@ -236,12 +181,6 @@ textarea.form-control {
     resize: vertical;
 }
 
-/* Action Buttons Group */
-.action-buttons {
-    display: flex;
-    gap: 8px;
-}
-
 /* Empty State */
 .empty-state {
     text-align: center;
@@ -262,21 +201,6 @@ textarea.form-control {
 .empty-state p {
     color: #95a5a6;
     font-size: 1.1rem;
-}
-
-/* Card Enhancements */
-.info-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 15px;
-    padding: 25px;
-    margin-top: 20px;
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-}
-
-.info-card h5 {
-    font-weight: 700;
-    margin-bottom: 15px;
 }
 
 /* Animations */
@@ -309,4 +233,43 @@ textarea.form-control {
     .action-buttons {
         flex-direction: column;
     }
+}
+
+/* Popular Games Hover effect */
+
+.game-card {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease
+}
+
+.game-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.game-overlay {
+   background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.game-overlay .card-title {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.game-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.game-card:hover .game-overlay {
+    background : linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,0.5) 100%);
+}
+
+.game-card:hover .game-details {
+    max-height: 200px;
+    opacity: 1;
 }

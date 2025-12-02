@@ -9,28 +9,38 @@ require_once 'includes/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_SESSION['user_id'];
-    $title = $_GET['title'];
-    $genre = $_GET['genre'] ?? '';
-    $platform = $_GET['platform'] ?? "PC";
-    $release_date = $_GET['release_date'] ?? null;
+    $title = $_POST['title'];
+    $genre = $_POST['genre'] ?? '';
+    $platform = $_POST['platform'] ?? "PC";
+    $release_date = $_POST['release_date'] ?? null;
+    $hours_played = $_POST['hours_played'] ?? null;
+    $status = $_POST['status'] ?? 'Backlog';
+    
+    #checks if game already exists in the users library
+    $check_sql = "SELECT id FROM games WHERE user_id = ? AND title = ?";
+    $check_stmt = mysqli_prepare($conn, $check_sql);
+    mysqli_stmt_bind_param($check_stmt, "is", $user_id, $title);
+    mysqli_stmt_execute($check_stmt);
+    $check_result = mysqli_stmt_get_result($check_stmt);
 
-    # Insert the games 
-    $sql = "INSERT INTO games (user_id, title, genre, platform, release_date) VALUES (?, ?, ?, ?, ?, 'Backlog')";
+        if (mysqli_num_rows($check_result) > 0) {
+            $errors[] = "Game already exists in your library.";
+            header("Location: dashboard.php");
+        exit(); 
+}
+
+    #Insert game into database
+    $sql = "INSERT INTO games (user_id, title, genre, platform, release_date, hours_played, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "issss", $user_id, $title, $genre, $platform, $release_date);
+    mysqli_stmt_bind_param($stmt, "issssis", $user_id, $title, $genre, $platform, $release_date, $hours_played, $status);
 
     if (mysqli_stmt_execute($stmt)) {
-    # Successful - redirects to game page
+        #This is successful redirects to the games page
         header("Location: games.php");
         exit();
     } else {
-        #Eror - redirects back the the dhasboard with an error message
-        header("Location: dashboard.php");
-        exit(); }
-        
-    } else {
-    # No game data was provided - redirects back to dashboard
-    header("Location: dashboard.php");
-    exit();
+        #Error redirects back to dashboard
+        $errors[] = "Error adding game. Please try again.";
+    }
 }
 ?>
