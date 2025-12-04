@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirm_password = $_POST['confirm_password'];
 
 # Verify reCAPTCHA
-    $recaptcha_secret = "6Lcc1BcsAAAAADP8c0TkZv1wNNfQdhUtYri1kQPl";
+    # Insert your reCAPTCHA secret key here
+    $recaptcha_secret = "";
     $recaptcha_response = $_POST['g-recaptcha-response'];
     $verfiy_url = "https://www.google.com/recaptcha/api/siteverify?secret=$recaptcha_secret&response=$recaptcha_response";
 
